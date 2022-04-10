@@ -32,7 +32,6 @@ func ScrapeNfTable(urlChan chan string) func(table *colly.HTMLElement) {
 				if nthChild == 9 {
 					link := column.ChildrenFiltered("a")
 					if url, ok := link.Attr("href"); ok {
-						fmt.Println(url)
 						urlChan <- url
 					}
 
@@ -44,6 +43,8 @@ func ScrapeNfTable(urlChan chan string) func(table *colly.HTMLElement) {
 
 	}
 }
+
+//Scrapes Science articles table
 func ScrapeSciTable(urlChan chan string, c *colly.Collector) func(table *colly.HTMLElement) {
 
 	return func(table *colly.HTMLElement) {
@@ -91,7 +92,7 @@ func createCollectors(size int) []*colly.Collector {
 
 		clones[i].Limit(&colly.LimitRule{DomainGlob: "*", Parallelism: 5, Delay: 6 * time.Second})
 		clones[i].OnError(func(r *colly.Response, err error) {
-			fmt.Println(err.Error(), r.StatusCode)
+			fmt.Printf("STATUS<%v> %v\n", r.StatusCode, err.Error())
 		})
 		clones[i].UserAgent = userAgent
 	}
@@ -114,10 +115,12 @@ func Scrape(title string, output string, science bool, mirrors []bool) {
 		collectors[0].Wait()
 		//adding that to the queue
 		queue, _ := queue.New(threads, &queue.InMemoryQueueStorage{MaxSize: 10000})
+		count := 0
 		for url := range urlChan {
-			fmt.Printf("queuing %v\n", url)
+			count++
 			queue.AddURL(url)
 		}
+		fmt.Printf("Downloading %v book(s)", count)
 		for idx, mirror := range mirrors {
 			//Iterates through mirrors and selects and downloads depending on index
 			if mirror {
