@@ -2,6 +2,9 @@
 library genesis web scraper first 100 results
 
 ## Flags
+  * **Science (optional)**
+    
+     * ```-science``` - scrapes scientific articles
   
   * **Mirrors (required at least one)**
     
