@@ -19,7 +19,7 @@ library genesis web scraper first 100 results
   
   * **Title**
 
-    * ```-t "Any non fiction book title"``` - searches and scrapes the first 100 results of book title
+    * ```-t "Any book title"``` - searches and scrapes the first 100 results of book title
 
 ### Example
 ```bash
