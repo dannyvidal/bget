@@ -19,6 +19,7 @@ func main() {
 		ipfs       bool
 		infura     bool
 		piniata    bool
+		science    bool
 	)
 	flag.StringVar(&title, "t", "", "-t \"Some Book Title\"")
 	flag.StringVar(&output, "o", "", "-o \"Some Output Directory\"")
@@ -26,6 +27,8 @@ func main() {
 	flag.BoolVar(&ipfs, "ipfs", false, "ipfs mirrror")
 	flag.BoolVar(&infura, "infura", false, "infura mirrror")
 	flag.BoolVar(&piniata, "pinata", false, "pinata mirrror")
+	flag.BoolVar(&science, "science", false, "search science articles")
+
 	flag.Parse()
 
 	var withMirrors = []bool{
@@ -46,7 +49,8 @@ func main() {
 		log.Fatal("No title inputed")
 
 	}
-	if count == 0 {
+	// Scientific articles do not require a mirror
+	if !science && count == 0 {
 		log.Fatal("Select a mirror")
 	}
 	if strings.Contains(output, "~") {
@@ -64,5 +68,5 @@ func main() {
 			output = absp
 		}
 	}
-	scraper.Scrape(title, output, withMirrors)
+	scraper.Scrape(title, output, science, withMirrors)
 }
