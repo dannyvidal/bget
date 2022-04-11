@@ -6,7 +6,7 @@ library genesis web scraper first 100 results
     
      * ```-science``` - scrapes scientific articles
   
-  * **Mirrors (required at least one)**
+  * **Mirrors (required at least one *if not using science flag*)**
     
     * ```-cloudflare``` - uses cloudflare download link
     * ```-ipfs``` - uses ipfs download link
