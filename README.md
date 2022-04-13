@@ -23,5 +23,5 @@ library genesis web scraper first 100 results
 
 ### Example
 ```bash
-go run main.go -t "some book title" -cloudflare -o /output/directory/
+$ go run main.go -t "some book title" -cloudflare -o /output/directory/
 ```
